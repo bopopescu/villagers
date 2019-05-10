@@ -7,13 +7,14 @@ Directly reflects existing tables in the database, providing existing table clas
 
 from sqlalchemy import *
 from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 
-# 数据库方言类型
+# Database dialect type
 mysql = 'mysql'
-# 数据库链接驱动程序模块为 mysql-connector-python
+# The database link driver module is mysql-connector-python
 driver = 'mysqlconnector'
-# 用户\密码\服务器\端口\数据库
+# User \ password \ server \ port \ database
 user = 'root'
 password = 'hp2548HPL'
 host = 'localhost'
@@ -30,20 +31,21 @@ parameters = dict(
     database=database
 )
 
-# 获取数据库接口url
+# Get the database interface url
 dataurl = "{dialect}+{driver}://{user}:{password}@{host}:{port}/{database}".format(**parameters)
 
-# 创建连接,注意 : 默认创建pool池,当mysql服务器断开时会造成session操作异常,要么使用 sqlalchemy.pool.Nullpool ,如下
+# To create a connection
+# NOTE: the pool is created by default. When the mysql server is disconnected, session operation exception will be caused.Have access to sqlalchemy.pool.Nullpool.
+# eg:
 # engine = create_engine(dataurl,poolclass=NullPool)
 engine = create_engine(dataurl)
 
-# 构建元数据
+# Building metadata
 metadata = MetaData(bind=engine)
 
-# 反射数据库
+# Reflection databases
 Base = automap_base()
 Base.prepare(engine=engine, reflect=True)
 
-
-
-
+# Create session
+datasession = sessionmaker(bind=engine)()

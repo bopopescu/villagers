@@ -10,8 +10,8 @@ app.secret_key = 'fagpou1318#215pou'
 from bluephoto.blue1 import query
 
 app.register_blueprint(query, url_prefix='/query')
-# 关联验证登录蓝图 verify-blue
-from verify.verify_session import verifyblue
+# 关联验证登录蓝图 login-blue
+from login.verify_session import verifyblue
 
 app.register_blueprint(verifyblue, url_prefix='/login')
 

@@ -1,17 +1,24 @@
 #! -*-coding:utf-8-*-
-from sqlalchemy.orm import sessionmaker
 
-from datamanage import Base, engine
+from functools import wraps
+from datamanage import Base,datasession
+from flask import redirect, session, url_for
 
-# 获取具体表对象
-person = Base.classes.get('person')
-# 创建会话
-session = sessionmaker(bind=engine)()
-# 查询结果
-result = session.query(person).first()
+# Get the concrete table object
+administrator = Base.classes.administrator
 
-print (result)
 
-# 插入新数据
 
-newperson = person()
+def checksession(func):
+    # wraps :Maintains the properties of the modified function
+    @wraps(func)
+    def verify(*args, **kwargs):
+        userimport = session.get('username')
+        passwordhash = session.get('password')
+        if session.get('username') == 'validly':
+            print session.get('password')
+            return func(*args, **kwargs)
+        else:
+            return redirect(url_for('login.new_login'))
+
+    return verify

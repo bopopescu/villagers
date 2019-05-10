@@ -6,7 +6,7 @@
 
 from flask import Blueprint, render_template, request
 # 引入session 验证修饰接口视图函数
-from verify.verify_session import checksession
+from datamanage.checkout import checksession
 
 query = Blueprint('query', __name__, template_folder='templates')
 
