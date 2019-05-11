@@ -4,7 +4,7 @@
     Import sqlalchemy module control databases,easy to find and modify relate database objects.
 Directly reflects existing tables in the database, providing existing table classes
 """
-
+from flask_login import UserMixin
 from sqlalchemy import *
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
@@ -47,5 +47,9 @@ metadata = MetaData(bind=engine)
 Base = automap_base()
 Base.prepare(engine=engine, reflect=True)
 
-# Create session
+# Create databases session
 datasession = sessionmaker(bind=engine)()
+
+# Create a simple login user classes
+class USER(UserMixin):
+    pass

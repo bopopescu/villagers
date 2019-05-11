@@ -1133,7 +1133,7 @@
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="280" name="password">
+    <column id="285" parent="280" name="token">
       <Position>4</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
@@ -1156,7 +1156,7 @@
     </column>
     <column id="289" parent="280" name="modifytime">
       <Position>8</Position>
-      <DataType>date|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

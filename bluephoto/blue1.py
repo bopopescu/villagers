@@ -5,17 +5,15 @@
 """
 
 from flask import Blueprint, render_template, request
-# 引入session 验证修饰接口视图函数
-from datamanage.checkout import checksession
+# Import the flask-login validator
+from flask_login import login_required
 
 query = Blueprint('query', __name__, template_folder='templates')
 
 
 @query.route('/')
-@checksession
+@login_required
 def f():
-    pass
-    querylist = request.form
     return render_template('bluelogin.html', url=query.root_path)
 
 
