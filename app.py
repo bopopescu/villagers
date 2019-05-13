@@ -36,6 +36,9 @@ from login.index import verifyblue
 
 app.register_blueprint(verifyblue, url_prefix='/login')
 
+@app.route('/')
+def home():
+    return '主页'
 # 打印应用所有的路由
 with app.test_request_context():
     print ('-' * 20)

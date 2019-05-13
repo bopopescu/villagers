@@ -1,17 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>登录</title>
-</head>
-<body>
-<form method="post" autocomplete="on" action="{{login}}">
- <dd class="user_icon">
-   <input type="text" name="username" placeholder="count" class="login_txtbx"/>
-  </dd>
-  <dd class="pwd_icon">
-   <input type="password" name="password" placeholder="password" class="login_txtbx"/>
-  </dd><p><input type="submit"  value="登录" /></p><p>{{errer}}</p></form>
+{% extends 'base.html' %}
+{% import 'macro/inputmacro.html' as mi %}
+{% block title %}管理员登录{% endblock %}
+{% block content %}
+    {% set links = [
+  ('home',url_for('home')),
+  ('login',url_for("login.index")),
+  ('query',url_for('query.f')),
+] %}
+    <nav>
+        {% for label,link in links %}
+            {% if not loop.first %}|{% endif %}
+            <a href="{% if link is current_link %}
+    {% else %}
+    {{ link }}
+    {% endif %}
+    ">{{ label }}</a>
+        {% endfor %}
+    </nav>
+{% endblock content %}
+{% block header %}
 
-</body>
-</html>
+{% endblock %}{% block aside %}
+    <form method="post" autocomplete="on" action={{ url_for('login.new_login') }}>
+        {{ mi.input('user_id') }}
+        {{ mi.input(name='password',type='password') }}
+        {{ mi.input(name="",type="submit",value="登录") }}
+    </form>
+{% endblock %}
+
