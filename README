@@ -1,0 +1,10 @@
+datamanage package :
+    The database manager is primarily used to configure linked databases, map database table objects, and provide functions to authenticate users.
+
+login package:
+    Provides a home page and authentication implementation for login authentication.
+
+bluephoto package:
+    Extend new view functions to provide new functional implementations.
+
+
