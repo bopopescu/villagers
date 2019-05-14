@@ -25,6 +25,13 @@
         {{ mi.input('user_id') }}
         {{ mi.input(name='password',type='password') }}
         {{ mi.input(name="",type="submit",value="登录") }}
+<<<<<<< HEAD
+=======
+    {# 设置scrf_token #}
+        {{ form.csrf_token() }}<br/>
+    {{ form.user_id.label  }}:{{ form.user_id }}<br/>
+    {{ form.password.label  }}:{{ form.password }}<br/>
+>>>>>>> 2250800936a4301903b4a0ef504e9dc06e43c137
     </form>
 {% endblock %}
 
