@@ -1,37 +1,41 @@
 {% extends 'base.html' %}
 {% import 'macro/inputmacro.html' as mi %}
-{% block title %}管理员登录{% endblock %}
-{% block content %}
-    {% set links = [
-  ('home',url_for('home')),
-  ('login',url_for("login.index")),
-  ('query',url_for('query.f')),
-] %}
-    <nav>
-        {% for label,link in links %}
-            {% if not loop.first %}|{% endif %}
-            <a href="{% if link is current_link %}
-    {% else %}
-    {{ link }}
-    {% endif %}
-    ">{{ label }}</a>
-        {% endfor %}
-    </nav>
-{% endblock content %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        body{
+            background-image: url("{{ url_for('static', filename='images/backgroud.png') }}");
+        }
+    </style>
+{% endblock %}
+
 {% block header %}
 
 {% endblock %}{% block aside %}
-    <form method="post" autocomplete="on" action={{ url_for('login.new_login') }}>
-        {{ mi.input('user_id') }}
-        {{ mi.input(name='password',type='password') }}
-        {{ mi.input(name="",type="submit",value="登录") }}
-<<<<<<< HEAD
-=======
-    {# 设置scrf_token #}
-        {{ form.csrf_token() }}<br/>
-    {{ form.user_id.label  }}:{{ form.user_id }}<br/>
-    {{ form.password.label  }}:{{ form.password }}<br/>
->>>>>>> 2250800936a4301903b4a0ef504e9dc06e43c137
+    <form name="form1" id="form1" class="well"
+          style="width: 30em; margin: auto; margin-top: 150px;" action="{{ url_for('login.new_login') }}" method="post">
+        <h3>管理员登录</h3>
+        <div class=" input-group input-group-md">
+              <span class="input-group-addon" id="sizing-addon1"><i
+                      class="glyphicon glyphicon-user"></i></span>
+            <input id="userName" name="user_id" type="text" class="form-control" placeholder="用户名"/>
+
+        </div>
+        <br/>
+        <div class="input-group input-group-md">
+              <span class="input-group-addon" id="sizing-addon1"><i
+                      class="glyphicon glyphicon-lock"></i></span>
+            <input type="password" id="password" name="password" class="form-control" placeholder="密码"/>
+        </div>
+        <br/>
+        <button type="submit" id="bn" class="btn btn-success btn-block" form="form1">登录</button>
+        <p class="message">还没有账号？<a href="javascript:">立即注册</a><span><a href="">忘记密码</a></span></p>
+        {#   还没有账号，可以前往注册页面
+		 <a class="btn btn-sm btn-white btn-block" style="text-align: right;" th:href="@{register}" href="register.html"><h6>还没有账户？前往注册</h6></a>
+		 #}
     </form>
+{% endblock %}
+{% block footer %}
+{# 隐藏base页的页脚 #}
 {% endblock %}
 

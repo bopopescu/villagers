@@ -3,10 +3,7 @@ from flask import Blueprint, request, redirect, url_for, render_template
 from hashlib import md5
 from flask_login import login_user, logout_user, login_required
 from datamanage import checkout, USER
-<<<<<<< HEAD
-=======
 from myform import Loginform
->>>>>>> 2250800936a4301903b4a0ef504e9dc06e43c137
 
 # Define the blueprint
 verifyblue = Blueprint('login', __name__, template_folder='templates', static_folder='static')
@@ -24,15 +21,12 @@ def encrypt(password=None):
 @verifyblue.route('/new_login/', endpoint='new_login', methods=['GET', 'POST'])
 def new_login():
     if request.method == 'GET':
-<<<<<<< HEAD
-        return render_template('new_login.html')
-=======
         loginform = Loginform()
         return render_template('new_login.html', form=loginform)
->>>>>>> 2250800936a4301903b4a0ef504e9dc06e43c137
     else:
-        user_id = request.form.get('username')
+        user_id = request.form.get('user_id')
         password = request.form.get('password')
+        print user_id, password
         token = encrypt(password)
         user = checkout.query_user(user_id)
         if user is not None and token == user.token:

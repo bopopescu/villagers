@@ -6,7 +6,7 @@
 </head>
 <body>
 <header>{% block header %}{% endblock %}</header>
-<div><nav>{% block content %}<p>hello</p>{% endblock %}</nav></div>
+<div><nav>{% block content %}{% endblock %}</nav></div>
 <section>{% block section %}
 {% for item in items %}
     <li>{% block loop_item scoped %}
@@ -18,7 +18,7 @@
 
 {% endblock %}</article><aside>{% block aside %}
 
-{% endblock %}</aside><footer>{% block footer %}
+{% endblock %}</aside><footer >{% block footer %}
     {% set zkz='zkz' %}
 <p>Posted:{{ zkz|capitalize }}</p>
       <p>Contact with:<a href="gxkongzhou@163.com" rel="external nofollow"  >gxkongzhou@163.com</a> </p>
