@@ -1,5 +1,6 @@
 #! -*-coding:utf-8-*-
-from flask import Blueprint, request, redirect, url_for, render_template
+from flask import Blueprint, request, redirect, url_for, render_template, session
+
 from hashlib import md5
 from flask_login import login_user, logout_user, login_required
 from datamanage import checkout, USER
@@ -20,13 +21,16 @@ def encrypt(password=None):
 
 @verifyblue.route('/new_login/', endpoint='new_login', methods=['GET', 'POST'])
 def new_login():
+    # Record the page address before authentication with the session
+    oldargs = request.args.get('next')
+    if oldargs:
+        session['old_args_next'] = oldargs
     if request.method == 'GET':
         loginform = Loginform()
         return render_template('new_login.html', form=loginform)
     else:
         user_id = request.form.get('user_id')
         password = request.form.get('password')
-        print user_id, password
         token = encrypt(password)
         user = checkout.query_user(user_id)
         if user is not None and token == user.token:
@@ -35,7 +39,8 @@ def new_login():
 
             # Login to the user through the flask-login Login user method
             login_user(curr_user)
-            return redirect(url_for('login.index', _external=True))
+            # After successful verification,jump to the original request page.
+            return redirect(session.get('old_args_next'))
 
         # flash('Wrong username or password!')
         # Password error returns error message. Note that the render template passes a string in unicode format
