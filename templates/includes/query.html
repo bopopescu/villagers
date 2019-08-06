@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <script type=text/javascript src="{{ url_for('static', filename='jquery/1.10.2/jquery.min.js') }}"></script>
+{% endblock %}
+{% block section %}
+    <script type="text/javascript">
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script type=text/javascript>
+        $(function () {
+            $('button#calculate').bind('click', function () {
+                $.getJSON($SCRIPT_ROOT + '{{ url_for("query.query") }}', {
+                    name: $('input[name="name"]').val(),
+                    address: $('input[name="address"]').val(),
+                    phone: $('input[name="phone"]').val(),
+                    email: $('input[name="email"]').val(),
+                    nativeplace: $('input[name="nativeplace"]').val(),
+                    nation: $('input[name="nation"]').val(),
+                    identity: $('input[name="identity"]').val()
+                }, function (data) {
+                    $("#search-result").text(data.result);
+                });
+                return false;
+            });
+        });
+    </script>
+    <form name="form-search" method="post">
+        <h1>人员信息查询</h1>
+        <p><span>名字：</span><input type=text size=10 name='name'></p>
+        <p><span>地址：</span><input type="text" size=20 name='address'></p>
+        <p><span>手机：</span><input type=text size=20 name='phone'></p>
+        <p><span>邮箱：</span><input type=text size=20 name='email'></p>
+        <p><span>籍贯：</span><input type=text size=10 name='nativeplace'></p>
+        <p><span>民族：</span><input type=text size=10 name='nation'></p>
+        <p><span>身份证：</span><input type=text size=20 name='identity'></p>
+        <p>
+            <button id=calculate>查询</button>
+            <button type="reset">重置</button>
+        </p>
+    </form>
+{% endblock %}
+{% block article %}
+    <p id="search-result"></p>
+{% endblock %}

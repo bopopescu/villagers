@@ -1,6 +1,7 @@
 #! -*-coding:utf-8-*-
 from flask import Blueprint, request, redirect, url_for, render_template, session
-
+from flask import jsonify
+import json
 from hashlib import md5
 from flask_login import login_user, logout_user, login_required
 from datamanage import checkout, USER
@@ -48,13 +49,6 @@ def new_login():
 
 
 # 检查session是否存在，用于修饰其他 'GET' 视图函数
-
-
-@verifyblue.route('/', endpoint='index')
-@login_required
-def index():
-    return "登录成功"
-
 
 @verifyblue.route('/logout')
 @login_required
