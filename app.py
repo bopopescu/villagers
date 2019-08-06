@@ -48,9 +48,9 @@ def add_numbers():
 
 # 打印应用所有的路由
 with app.test_request_context():
-    print ('-' * 20)
-    print app.url_map
-    print ('-' * 20)
+    print('-' * 20)
+    print(app.url_map)
+    print('-' * 20)
 # 本程序运行
 if __name__ == '__main__':
     app.run()

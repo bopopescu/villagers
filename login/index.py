@@ -5,7 +5,7 @@ import json
 from hashlib import md5
 from flask_login import login_user, logout_user, login_required
 from datamanage import checkout, USER
-from myform import Loginform
+from login.myform import Loginform
 
 # Define the blueprint
 verifyblue = Blueprint('login', __name__, template_folder='templates', static_folder='static')
@@ -15,7 +15,7 @@ verifyblue = Blueprint('login', __name__, template_folder='templates', static_fo
 def encrypt(password=None):
     # md5().update(<values>) syntax is wrong！ py version = 2.7
     newhash = md5()
-    newhash.update(password)
+    newhash.update(password.encode('utf-8'))
     token = newhash.hexdigest()
     return token
 
