@@ -55,14 +55,14 @@ def index():
 @login_required
 def search():
     search_data = {}
-    result = {}
     if (request.method == "GET"):
         for key, value in request.args.items():
             if request.args.get(key):
                 search_data[key] = value
         print("查询数据：", search_data)
-        da = datasession.query(person).filter_by(**search_data).all()
-        for numb, val in enumerate(da, 1):
-            result[numb] = val.single_to_dict()
-        print(result)
-        return jsonify(result)
+        if search_data:
+            da = datasession.query(person).filter_by().all()
+            resultlist = [x.single_to_dict() for x in da]
+            return jsonify(str(resultlist))
+        else:
+            return jsonify({"error": "请输入正确的搜索值"})

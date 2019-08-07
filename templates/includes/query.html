@@ -19,12 +19,14 @@
                     nation: $('input[name="nation"]').val(),
                     identity: $('input[name="identity"]').val()
                 }, function (data) {
-                    var html = '<ul>';
-                    for (var i = 0; i < data.result.length; i++) {
-                        html += '<li>' + data.result[i] + '</li>';
+                    if(data.error){
+                    $('p#search-result').text(data.error).css({"color":"red"})}
+                   else{
+                       var tbhtml = "<tr><th>姓名</th><th>出生年月</th><th>性别</th></tr>";
+                        for(var i = 0;i<datas.length;i++){
+                                tbhtml+="<tr><td>"+datas[i].name+"</td><td>"+datas[i].age+"</td><td>"+datas[i].sex+"</td></tr>";
+                        }
                     }
-                    html += '</ul>';
-                    $('#result').html(html);
                 });
                 return false;
             });
@@ -44,7 +46,21 @@
                 <button id=calculate>查询</button>
                 <button type="reset">重置</button>
             </p>
+
         </form>
     </div>
 {% endblock %}
-    <div id="result"><p id="search-result"></p></div>
+{% block aside %}
+<div id="result"><p id="search-result">搜索后这里将会被改变！</p></div>
+    <table border="1px solid">
+                <tr>
+                    <th>姓名</th>
+                    <th>身份证号</th>
+                    <th>电话</th>
+                    <th>地址</th>
+                    <th>籍贯</th>
+                    <th>学历</th>
+                    <th>电话</th>
+                  </tr>
+            </table>
+{% endblock %}
